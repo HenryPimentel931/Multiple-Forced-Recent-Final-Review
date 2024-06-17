@@ -1,0 +1,462 @@
+\documentclass{lzureport}
+%\usepackage{enumerate}
+
+\major{计算数学}
+\name{甄继伟}
+\title{期末复习}
+\stuid{2001312001}
+\college{麻省理工大学}
+\date{\zhtoday}
+\expname{期末复习}
+\course{非线性问题数值解}
+
+
+\begin{document}
+
+\makecover
+
+%\input{chapter/abstract.tex}
+
+\thispagestyle{empty}
+\tableofcontents
+\newpage 
+\setcounter{page}{1}
+\setcounter{equation}{0} % 重置公式计数器
+
+%%%%%%%%%%%%正文
+\newpage
+
+\section{范数}
+
+\subsection{范数公理}
+
+映射$\|\cdot\|:\mathbb{R}^{m\times n}\to\mathbb{R}$被称为 \textcolor{blue}{\textbf{范数}} ，若其满足如下公理：
+
+\begin{enumerate}[label=\arabic*)]
+	\item \textcolor{YBXPurple}{正定性}$\|\boldsymbol{A}\|\geq0,\forall\boldsymbol{A}\in L(\mathbb{R}^n,\mathbb{R}^m);\|\boldsymbol{A}\|=0$当且仅当$\boldsymbol{A}=\mathbf{0}$ (上述向
+量范数相应的简化条件此处亦然成立);
+	\item \textcolor{YBXPurple}{正齐性}$\|\alpha\boldsymbol{A}\|=|\alpha|\|\boldsymbol{A}\|,\forall\boldsymbol{A}\in L(\mathbb{R}^n,\mathbb{R}^m),\boldsymbol{\alpha}\in\mathbb{R};$ 
+	\item \textcolor{YBXPurple}{三角不等式}$\|A+B\|\leq\|A\|+\|B\|,\forall A,B\in L(\mathbb{R}^n,\mathbb{R}^m).$
+\end{enumerate}
+
+\subsection{范数公理简化}
+范数公理可以简化为 
+
+$$\|x\|=0\Rightarrow x=0,\forall x\in\mathbb{R}^n.$$
+
+\begin{derivation}{推导}
+	事实上，由正齐性，$\|0\cdotp x\|=|0|\|x\|\Rightarrow\|0\|=0$,即$\|x\|=0$当且仅当$x=\mathbf{0}.$ 进一步，我们有$\|-x\|=|-1|\|x\|=\|x\|.$
+	
+	因此，由三角不等式，$0=\|-$ $x+x\|\leq\|x\|+\|-x\|=2\|x\|\Rightarrow\|x\|\geq0.$
+\end{derivation}
+
+\section{仿射集合}
+
+\subsection{仿射集合定义}
+\subsubsection{二点仿射集合定义}
+如果通过集合$\mathbb{D}\subseteq\mathbb{R}^n$中任意两个不同点的直线仍然在集合$\mathbb{D}$中那么称集合$\mathbb{D}$是\textcolor{blue}{\textbf{仿射}}的. 
+也就是说，$\mathbb{D}\subseteq\mathbb{R}^n$是仿射的\textcolor{YBXPurple}{等价于} ： 
+
+\begin{center}
+	\colorbox{yellow}{\color{black}{对于任意$\boldsymbol{x}_1,\boldsymbol{x}_2\in\mathbb{D}$及$\lambda\in\mathbb{R}$有$\lambda\boldsymbol{x}_1+(1-\lambda)\boldsymbol{x}_2\in\mathbb{D}$ }}.
+\end{center}
+
+换而言之，$\mathbb{D}$包含了$\mathbb{D}$中任意两点的系数之和为 1 的线性组合
+
+\subsubsection{多点仿射集合定义}
+这个概念可扩展到多点情形.如果$\lambda_1+\cdots+\lambda_k=1$,我们称具有$\lambda_1\boldsymbol{x}_1+\cdots+\lambda_k\boldsymbol{x}_k$形式的点为$\boldsymbol x_1,\cdots,\boldsymbol x_k$的 \textcolor{blue}{\textbf{仿射组合}} . 
+
+一个仿射集合包含其中任意点的仿射组合，即如果$\mathbb{D}$是一个仿射集合，
+$\boldsymbol{x}_1, \ldots , \boldsymbol{x}_k\in \mathbb{D} $, 
+并且$\lambda_1+\cdots+\lambda_k=1$,
+那么$\lambda_1\boldsymbol{x}_1+\cdots+\lambda_k\boldsymbol{x}_k$仍然在$\mathbb{D}$ 中
+
+如果$\mathbb{D}$是一个仿射集合并且$\boldsymbol x_0\in\mathbb{D}$,则集合
+$$\mathbb{V}=\mathbb{D}-x_0=\{x-x_0\mid x\in\mathbb{D}\}$$
+是一个 \textcolor{blue}{\textbf{子空间}} ，即关于加法和数乘是封闭的.为说明这一点，设$\nu_1,\nu_2\in$ $\mathbb{V},\boldsymbol{\alpha},\boldsymbol{\beta}\in\mathbb{R}$,则有$\boldsymbol{\nu }_1+ \boldsymbol{x}_0\in \mathbb{D} , \boldsymbol{\nu }_2+ \boldsymbol{x}_0\in \mathbb{D}$.
+因为 $\mathbb{D}$是仿射的，且$\alpha+\beta+$ $(1-\alpha-\beta)=1$,所以
+
+$$\alpha v_1+\beta v_2+x_0=\alpha\left(v_1+x_0\right)+\beta\left(v_2+x_0\right)+\left(1-\alpha-\beta\right)x_0\in\mathbb{D},$$
+
+由$\alpha\boldsymbol{\nu}_1+\beta\boldsymbol{\nu}_2+\boldsymbol{x}_0\in\mathbb{D}$,我们可知$\alpha\boldsymbol{\nu}_1+\beta\boldsymbol{\nu}_2\in\mathbb{V}.$
+
+因此，仿射集合$\mathbb{D}$可以表示为
+
+$$\mathbb{D}=\mathbb{V}+x_0=\left\{v+x_0\mid v\in\mathbb{V}\right\},$$
+即一个子空间加上一个偏移.与仿射集合$\mathbb{D}$相关联的子空间$\mathbb{V}$与$\boldsymbol x_0$的选取无关，所以$\boldsymbol x_0$可以是$\mathbb{D}$中的任意一点.我们定义仿射集合$\mathbb{D}$的维数为子空间$\mathbb{V}=\mathbb{D}-\boldsymbol{x}_0$的维数，其中$\boldsymbol x_0$是$\mathbb{D}$中的任意元素.
+
+\subsection{线性方程组的解集}
+
+线性方程组的解集 $\mathbb{D}=\{x\mid Ax=b\}$,其中$\boldsymbol{A}\in\mathbb{R}^{m\times n}$,\textcolor{YBXPurple}{线性方程组的解集$\boldsymbol{b}\in\mathbb{R}^m$,是一个仿射集合}. 
+
+
+\begin{derivation}{推导}
+	设$\boldsymbol x_1,\boldsymbol{x}_2\in\mathbb{D}$,即$\boldsymbol{Ax}_1=\boldsymbol{b},\boldsymbol{Ax}_2=\boldsymbol{b}$ .则对于任意 $\lambda$,我们有
+
+$$A\left(\lambda x_1+(1-\lambda)x_2\right)=\lambda Ax_1+(1-\lambda)Ax_2=b.$$
+
+这表明任意的仿射组合$\lambda\boldsymbol x_1+(1-\lambda)\boldsymbol x_2$也在$\mathbb{D}$中，并且与仿射集合$\mathbb{D}$
+相关联的子空间就是 $\boldsymbol{A}$ 的零空间.
+
+反之任意仿射集合可以表示为一个线性方程组的解集。
+
+这也解释了为什么线性方程组的解可以表示为 \textcolor{YBXPurple}{通解+特解} 的形式.
+\end{derivation}
+
+\section{凸包与凸锥}
+\begin{enumerate}[label=\arabic*)]
+	\item 对$\forall\mathbb{D}\subset\mathbb{R}^n,\mathbb{D}$ 的 \textcolor{blue}{\textbf{凸包}} 是: $\mathbb{D}$中元素一切凸组合所构成的集合,记为 $Co(\mathbb{D})$
+
+	\item 如果对于任意$x\in\mathbb{D}$和$\lambda\geqslant0$都有$\lambda x\subseteq A$ $\mathbb{D}$,我们称集合$\mathbb{D}\subset\mathbb{R}^n$是 \textcolor{blue}{\textbf{锥}} .
+	
+	\item 如果集合$\mathbb{D}$是锥，并且是凸的，则称$\mathbb{D}$为\textcolor{blue}{\textbf{凸锥}}，即对于任意$\boldsymbol{x}^{(1)},\boldsymbol{x}^{(2)}\in\mathbb{D}$ 和 $\lambda_1,\lambda_2\geqslant0$,都有
+	$$\lambda_1x^{(1)}+\lambda_2x^{(2)}\in\mathbb{D}.$$
+\end{enumerate}
+
+
+\section{G可微 与 F可微}
+\subsection{Gateaux可导(弱可导)}
+设映射$F:\mathbb{D}\subset\mathbb{R}^n\to\mathbb{R}^m,\boldsymbol{x}\in$int$(\mathbb{D}).$如果存在线性映射$\boldsymbol{A}\in L\left(\mathbb{R}^n,\mathbb{R}^m\right)$,使对任何$\boldsymbol{h}\in\mathbb{R}^n,\boldsymbol{x}+t\boldsymbol{h}\in\mathbb{D}$,有
+
+\begin{equation}
+\lim_{t\to0}\frac1t\|F(\boldsymbol{x}+t\boldsymbol{h})-F(\boldsymbol{x})-t\boldsymbol{Ah}\|=0
+\end{equation}\label{eqn:G-可导}
+
+则称$F$在$\boldsymbol x$处 \textcolor{blue}{\textbf{G-可导}} (Gateaux-可导),并称 \textcolor{YBXPurple}{$\boldsymbol A$为$F$在点$\boldsymbol x$处的}\textcolor{blue}{\textbf{G-导数}}，记为$F^\prime(\boldsymbol{x})=\boldsymbol{A}.$
+
+我们称$F^\prime(\boldsymbol x)\boldsymbol{h}$为$F$在$\boldsymbol x$点沿$\boldsymbol h$的G-微分.不难发现，由式(\ref{eqn:G-可导})有
+
+$$F^{\prime}(x)\boldsymbol{h}=\lim_{t\to0}\frac1t[F(x+t\boldsymbol{h})-F(x)].$$
+
+
+\subsection{Freschet可导(强可导)}
+设映射$F:\mathbb{D}\subset\mathbb{R}^n\to\mathbb{R}^m,\boldsymbol{x}\in$int$(\mathbb{D}).$如果存在映射$\boldsymbol{A}\in L\left(\mathbb{R}^n,\mathbb{R}^m\right)$,使对任何$\boldsymbol{h}\in\mathbb{R}^n,\boldsymbol{x}+\boldsymbol{h}\in\mathbb{D}$,有
+
+\begin{equation}
+\lim_{\|\boldsymbol{h}\|\to0}\frac{\|F(\boldsymbol{x}+\boldsymbol{h})-F(\boldsymbol{x})-\boldsymbol{Ah}\|}{\|\boldsymbol{h}\|}=0,
+\end{equation}\label{eqn:F-可导}
+
+则称$F$在$\boldsymbol x$处 \textcolor{blue}{\textbf{F-可导}} (Fréchet-可导),并称 \textcolor{YBXPurple}{$\boldsymbol A$为$F$在点$\boldsymbol x$处的}\textcolor{blue}{\textbf{F-导数}}，
+仍记为$F^\prime(\boldsymbol{x})=\boldsymbol{A}.$与上类似，称$F^\prime(\boldsymbol{x})\boldsymbol{h}$为$F$在$\boldsymbol x$点沿$\boldsymbol h$的\textcolor{blue}{\textbf{F-微分}}。
+
+\subsection{F-可微与连续}
+\colorbox{yellow}{\color{black}{若映射$F:\mathbb{D}\subset\mathbb{R}^n\to\mathbb{R}^m$在点$x$处 \textcolor{YBXPurple}{F-可导}，则$F$在$\boldsymbol{x}$处\textcolor{YBXPurple}{连续}}}.
+
+确切地，$\exists x$的闭球$\overline{\mathbb{S}}(\boldsymbol{x},\boldsymbol{\delta})\subset\mathbb{D}$及常数$C>0$,使当$\|\boldsymbol{h}\|\leqslant\delta$时，有
+
+\begin{equation}
+\|F(x+h)-F(x)\|\leqslant C\|h\|.
+\end{equation}\label{eqn:F-可导-连续}
+
+\begin{derivation}{推导}
+	注意，我们只是在 $\mathbb{D}$ 的内点定义了可导性，故 $x\in$int$(\mathbb{D})$,从而存在$\delta_1>0$,使得当$\|\boldsymbol{h}\|\leqslant\delta_1$时，有$x+\boldsymbol{h}\in\mathbb{D}.$于是对于任意给定的$\varepsilon>0$,由式 (\ref{eqn:F-可导}),存在正数 $\delta\leqslant\delta_1$,使得当 $\|\boldsymbol{h}\|\leqslant\delta$ 时，有
+	$$\|F(x+h)-F(x)-F^{\prime}(x)h\|\leqslant\varepsilon\|h\|.$$
+	故
+	$$\|F(x+h)-F(x)\|\leqslant\|F^{\prime}(x)\|\|h\|+\varepsilon\|h\|=(\|F^{\prime}(x)\|+\varepsilon)\|h\|.$$
+	取$C= \| F^{\prime }( \boldsymbol{x}) \| + \boldsymbol{\varepsilon }$,立即得到式 (\ref{eqn:F-可导-连续}).	
+
+	\textcolor{YBXPurple}{连续性}是F-可导的\textcolor{YBXPurple}{必要条件}。
+\end{derivation}
+
+\subsection{复合映射的求导法则(链锁规则)}
+ 设映射$F:\mathbb{D}_F\subset\mathbb{R}^n\to\mathbb{R}^m$在$x$处存在 G-导数，而映射$G:\mathbb{D}_G\subset\mathbb{R}^m\to\mathbb{R}^q$在$F(\boldsymbol{x})$处存在 F-导数，则复合映射$H=G\circ F$在$\boldsymbol{x}$处一定存在 G-导数，且
+$$H^{\prime}(x)=G^{\prime}(F(x))F^{\prime}(x).$$
+如果$F^\prime(x)$是 F-导数，则$H^\prime(x)$也是 F-导数
+
+\begin{derivation}{推导}
+	证：取定$h.$由定义，$x\in\operatorname{int}\left(\mathbb{D}_F\right)$且$F(\boldsymbol{x})\in\operatorname{int}\left(\mathbb{D}_G\right).$
+	
+	而由$F$在$\boldsymbol{x}$处
+有 G-导数可知，$F$在$x$处半连续.
+
+	因$x\in$int$(\mathbb{D}_F)$,故存在$\delta>0$,使得当$|t|<\delta$ 时，$\boldsymbol x+t\boldsymbol{h}\in\mathbb{D}_F$, 同时 $F(\boldsymbol x+t\boldsymbol{h})\in\mathbb{D}_G.$ 因此，对于 $0<|t|<\delta$,有
+
+$$
+\begin{aligned}
+	&\frac1t\left\|H(\boldsymbol{x}+t\boldsymbol{h})-H(\boldsymbol{x})-tG^{\prime}(F(\boldsymbol{x}))F^{\prime}(\boldsymbol{x})\boldsymbol{h}\right\|\\
+	&\quad \leqslant\frac1t\left\|G(F(\boldsymbol{x}+t\boldsymbol{h}))-G(F(\boldsymbol{x}))-G^{\prime}(F(\boldsymbol{x}))[F(\boldsymbol{x}+t\boldsymbol{h})-F(\boldsymbol{x})]\right\|+\\
+	&\qquad \frac1t\left\|G^{\prime}(F(\boldsymbol{x}))\left[F(\boldsymbol{x}+t\boldsymbol{h})-F(\boldsymbol{x})-tF^{\prime}(\boldsymbol{x})\boldsymbol{h}\right]\right\|\\
+	&\quad=\boldsymbol{I}_1+\boldsymbol{I}_2.
+\end{aligned}
+$$
+
+
+当 $t\to0$ 时，显然 $\boldsymbol{I}_{2}\to0.$ 由于 $F$是 $G$-可导的，
+故 $\frac{1}{t}\|F(\boldsymbol{x}+t\boldsymbol{h})-F(\boldsymbol{x})|$ 有界. 从而对于$0<|t|<\delta$中使得$F(\boldsymbol{x}+t\boldsymbol{h})\neq F(\boldsymbol{x})$的任一$t$值，我们有
+
+$$
+\begin{aligned}
+	\boldsymbol{I}_1=& \frac{\left\|F(\boldsymbol{x}+t\boldsymbol{h})-F(\boldsymbol{x})\right\|}t\times   \\
+	&\frac{\|G(F(\boldsymbol{x}+t\boldsymbol{h}))-G(F(\boldsymbol{x}))-G^{\prime}(F(\boldsymbol{x}))[F(\boldsymbol{x}+t\boldsymbol{h})-F(\boldsymbol{x})]\|}{\|F(\boldsymbol{x}+t\boldsymbol{h})-F(\boldsymbol{x})\|}  \\
+	&\to \|F^{\prime}(\boldsymbol{x})\boldsymbol{h}\|\times0=0.
+\end{aligned}
+$$
+
+\end{derivation}
+
+\section{中值定理}
+\subsection{中值定理不等式}
+若$F:\mathbb{D}\subset\mathbb{R}^n\to\mathbb{R}^m$在凸集$\mathbb{D}_0\subset\mathbb{D}$上 G-可导，则对任意$x,y,z\in\mathbb{D}_0$,有
+
+\begin{enumerate}[label=\arabic*)]
+	\item $\| F( y) - F( x) \| \leqslant \sup\limits _{0\leqslant t\leqslant 1}\| F^{\prime }( x+ t( y- x) ) \| \| y- x\| ;$
+	\item $\| F( \mathbf{y} ) - F( \mathbf{z} ) - F^{\prime }( \mathbf{x} ) ( \mathbf{y} - \mathbf{z} ) \| \leqslant \sup\limits _{0\leq t\leq 1}\| F^{\prime }( \mathbf{z} + t\left ( \mathbf{y} - \boldsymbol{z}\right ) ) - F^{\prime }( \mathbf{x} ) \| \| \mathbf{y} - \boldsymbol{z}\| .$ 
+\end{enumerate}
+
+\subsection{积分中值定理}
+若$F:\mathbb{D}\subset\mathbb{R}^n\to\mathbb{R}^m$在凸集$\mathbb{D}_0\subset\mathbb{D}$上 G-可导，且$F^\prime$在
+$\mathbb{D}_0$ 上半连续，则对任何 $x,y\in\mathbb{D}_0$,有
+
+\begin{equation}
+F(\mathbf{y})-F(\mathbf{x})=\int_0^1F^{\prime}(\mathbf{x}+t(\mathbf{y}-\mathbf{x}))(\mathbf{y}-\mathbf{x})\mathrm{d}t.
+\end{equation}\label{eqn:积分中值定理}
+
+
+
+
+
+\section{Holder连续}
+设$F:\mathbb{D}\subset\mathbb{R}^n\to\mathbb{R}^m$在凸集$\mathbb{D}_0\subset\mathbb{D}$上连续可导，且$F^\prime$
+
+满足
+
+\begin{equation}
+\begin{Vmatrix}F'(\boldsymbol{x})-F'(\boldsymbol{y})\end{Vmatrix}\leqslant\alpha\|\boldsymbol{x}-\boldsymbol{y}\|^p,\quad\forall\boldsymbol{x},\boldsymbol{y}\in\mathbb{D}_0,
+\end{equation}\label{eqn:Holder连续}
+
+其中$\alpha\geqslant0,p\geqslant0$为常数，则对任何$x,y\in\mathbb{D}_0$,有
+
+$$\left\|F(\mathbf{y})-F(\mathbf{x})-F^{\prime}(\mathbf{x})(\mathbf{y}-\mathbf{x})\right\|\leqslant\frac{\alpha}{1+p}\|\mathbf{y}-\mathbf{x}\|^{1+p}$$
+
+\begin{derivation}{推导}
+	证：由式(\ref{eqn:积分中值定理})和式(\ref{eqn:Holder连续}),有
+	
+	$$\begin{aligned}\left\|F(\mathbf{y})-F(\mathbf{x})-F^{\prime}(\mathbf{x})(\mathbf{y}-\mathbf{x})\right\|&=\left\|\int_0^1\left[F^{\prime}(\boldsymbol{x}+t(\boldsymbol{y}-\boldsymbol{x}))-F^{\prime}(\boldsymbol{x})\right](\boldsymbol{y}-\boldsymbol{x})\mathrm{d}t\right\|\\&\leqslant\int_0^1\left\|F^{\prime}(\boldsymbol{x}+t(\boldsymbol{y}-\boldsymbol{x}))-F^{\prime}(\boldsymbol{x})\right\|\left\|\boldsymbol{y}-\boldsymbol{x}\right\|\mathrm{d}t\\&\leqslant\alpha\|\mathbf{y}-\boldsymbol{x}\|^{1+p}\int_0^1t^p\:\mathrm{d}t=\frac\alpha{1+p}\|\mathbf{y}-\boldsymbol{x}\|^{1+p}.\end{aligned}$$
+	
+	由前可知，当映射$F:\mathbb{D}\subset\mathbb{R}^n\to\mathbb{R}^m$在开集$\mathbb{D}_0\subset\mathbb{D}$上 G-可导时其 G-导数显然属于 L$(\mathbb{R}^n,\mathbb{R}^m).$这样就得到一个映射$F^\prime:\mathbb{D}_0\subset\mathbb{R}^n\to$ $\mathbb{L}\left(\mathbb{R}^n,\mathbb{R}^m\right)$,称为 $F$ 的 \textcolor{blue}{\textbf{导映射}} .因此可以研究导映射 $F^\prime$ 的可微性.	
+\end{derivation}
+
+\section{凸泛函}
+% \subsection{凸泛函定义}
+% 设泛函 $f:\mathbb{D}\subset\mathbb{R}^n\to\mathbb{R},\mathbb{D}_0\subset\mathbb{D}$为 \textcolor{YBXPurple}{凸集}
+
+% \begin{enumerate}[label=\arabic*)]
+% 	\item 若对 $\forall\mathbf{x}\neq\mathbf{y}\in\mathbb{D}_0$ 和 $\forall\lambda\in(0,1)$,有
+% 	$$f(\lambda\boldsymbol{x}+(1-\lambda)\boldsymbol{y})\leqslant\lambda f(\mathbf{x})+(1-\lambda)f(\mathbf{y}),$$
+% 	则称 $f$ 为 $\mathbb{D}_0$ 上的 \textcolor{blue}{\textbf{凸泛函}};
+	
+% 	\item 若对上述 $\mathbf{x},\mathbf{y},\lambda$ 成立
+% 	$$f(\lambda\boldsymbol{x}+(1-\lambda)\boldsymbol{y})<\lambda f(\boldsymbol{x})+(1-\lambda)f(\boldsymbol{y}),$$
+% 	则称 $f$ 在 $\mathbb{D}_0$ 上是\textcolor{blue}{\textbf{严格凸的}};
+	
+% 	\item 若存在常数 $c>0$, 使对上述 $\mathbf{x},\mathbf{y},\lambda$ 有
+% 	$$f(\lambda\boldsymbol{x}+(1-\lambda)\mathbf{y})+c\lambda\left(1-\lambda\right)\|\boldsymbol{x}-\mathbf{y}\|^2\leqslant\lambda f(\boldsymbol{x})+(1-\lambda)f(\boldsymbol{y}),$$
+% 	则称 $f$ 在 $\mathbb{D}_0$ 上是\textcolor{blue}{\textbf{强凸的}}.
+% \end{enumerate}
+
+
+% \subsection{强凸}
+泛函$f(\boldsymbol{x})$强凸的 \textcolor{YBXPurple}{充要条件} 是存在$c>0$使得
+$$f(x)-c\|x\|_2^2$$
+为凸泛函
+
+\begin{derivation}{推导}
+\textbf{充分性}:设$x,y,\lambda$如凸函数定义中所定义.设存在$c>0$使得
+
+\begin{Thm}[凸泛函定义]
+	若对$\forall x\neq y\in\mathbb{D}_0$和$\forall \lambda \in ( 0, 1) , \textbf{有 }$
+
+	\begin{equation}
+	f(\lambda x+(1-\lambda)y)\leqslant\lambda f(x)+(1-\lambda)f(y),
+	\end{equation}\label{eqn:凸泛函}
+
+则称$f$为$\mathbb{D}_0$上的凸泛函；
+\end{Thm}
+
+
+$f(\boldsymbol{x})-c\|\boldsymbol{x}\|_2^2$为凸泛函，则由(\ref{eqn:凸泛函})有
+
+$$\begin{aligned}
+f(\lambda\boldsymbol{x}+(1-\lambda)\boldsymbol{y})\\
+&\leq\lambda f(\boldsymbol{x})+(1-\lambda)f(\boldsymbol{y})+c||\lambda\boldsymbol{x}+(1-\lambda)\boldsymbol{y}||_2^2-\lambda c\|\boldsymbol{x}\|_2^2-(1-\lambda)c\|\boldsymbol{y}\|_2^2\\
+&=\lambda f(\boldsymbol{x})+(1-\lambda)f(\boldsymbol{y})+c(2\lambda(1-\lambda)\boldsymbol{x}^T\boldsymbol{y}-\lambda(1-\lambda)(\|\boldsymbol{x}\|_2^2+\|\boldsymbol{y}\|_2^2))\\
+&=\lambda f(\boldsymbol{x})+(1-\lambda)f(\boldsymbol{y})-c\lambda(1-\lambda)\|\boldsymbol{x}-\boldsymbol{y}\|_2^2,\\
+\end{aligned}$$
+
+即 $f(\boldsymbol{x})$ 强凸.
+
+\begin{Thm}[强凸定义]
+	若存在常数$c>0$,使对上述$x,y,\lambda$有
+	\begin{equation}
+	f(\lambda\boldsymbol{x}+(1-\lambda)\boldsymbol{y})+c\lambda(1-\lambda)\|\boldsymbol{x}-\boldsymbol{y}\|^2\leqslant\lambda f(\boldsymbol{x})+(1-\lambda)f(\boldsymbol{y}),
+	\end{equation}\label{eqn:强凸}
+则称$f$在$\mathbb{D}_0$上是强凸的
+\end{Thm}
+
+\textbf{必要性}: 设$f(x)$强凸，则由( \ref{eqn:强凸} ) 可知存在$c> 0$使得
+
+$$f(\boldsymbol{\lambda}\boldsymbol{x}+(1-\boldsymbol{\lambda})\boldsymbol{y})\leq\boldsymbol{\lambda}f(\boldsymbol{x})+(1-\boldsymbol{\lambda})f(\boldsymbol{y})-c\boldsymbol{\lambda}\left(1-\boldsymbol{\lambda}\right)\|\boldsymbol{x}-\boldsymbol{y}\|_2^2$$
+
+成立. 由于充分性证明中不等式右端皆为等式, 因此得证.
+\end{derivation}
+
+\section{同胚映射——向量值扰动定理}
+设$A\in\mathbb{L}\left(\mathbb{R}^n\right)$非奇异$,G:\mathbb{R}^n\to\mathbb{R}^n$在闭球$\overline{\mathbb{S}}_0=\overline{\mathbb{S}}\left(\boldsymbol{x}^{(0)},\boldsymbol{\delta}\right)\subset \mathbb{D}$上满足
+
+$$\|G(x)-G(y)\|\leqslant\alpha\|x-y\|,\quad\forall x,y\in\overline{\mathbb{S}}_0,$$
+
+其中$0<\alpha<\beta^{-1},\beta=\left\|\boldsymbol{A}^{-1}\right\|$,则由$F(x)=\boldsymbol{A}x-G(x)$定义的映射$F:$ $\overline{\mathbb{S}}_0\to\mathbb{R}^n$是$\overline{\mathbb{S}}_0$与$F\left(\overline{\mathbb{S}}_0\right)$之间的一个同胚映射.
+
+此外，对$\forall\boldsymbol{y}\in\overline{\mathbb{S}}_1=$ $\sum\limits_{i=1}^{\infty}\left(F\left(\boldsymbol{x}^{(0)}\right),\sigma\right)$,其中 $\sigma=\left(\beta^{-1}-\alpha\right)\delta$,方程 $F(\boldsymbol{x})=\boldsymbol{y\text{ 在 }\overline{\mathbb{S}}}_0$ 中有唯一解。因此，特别有$\overline{\mathbb{S}}_1\subset F\left(\overline{\mathbb{S}}_0\right)$
+
+\begin{derivation}{推导}
+对固定的$\boldsymbol{y}\in \overline {\mathbb{S} }_1$,作映射 $H:\overline{\mathbb{S}}_0\to\mathbb{R}^n:$
+
+$$H(\boldsymbol{x})=\boldsymbol{A}^{-1}(G(\boldsymbol{x})+\boldsymbol{y})=\boldsymbol{x}-\boldsymbol{A}^{-1}(F(\boldsymbol{x})-\boldsymbol{y}).$$
+
+显然，$F(\boldsymbol{x})=\boldsymbol{y}$在$\overline{\mathbb{S}}_0$中有唯一解的充分必要条件是：$H$在$\overline{\mathbb{S}}_0$中有
+唯一的不动点. 注意，对 $\forall x,z\in\overline{\mathbb{S}}_0$,有
+$$\|H(x)-H(z)\|=\left\|A^{-1}[G(x)-G(z)]\right\|\leqslant\beta\alpha\|x-z\|.$$
+因$\beta\alpha<1$,故$H$在$\overline{\mathbb{S}}_0$上是压缩映射.又对$\forall\boldsymbol{x}\in\overline{\mathbb{S}}_0$,有
+
+$$\begin{aligned}
+\left\|H(\boldsymbol{x})-\boldsymbol{x}^{(0)}\right\|&\leqslant\left\|H(\boldsymbol{x})-H\left(\boldsymbol{x}^{(0)}\right)\right\|+\left\|H\left(\boldsymbol{x}^{(0)}\right)-\boldsymbol{x}^{(0)}\right\|\\&\leqslant\beta\alpha\left\|\boldsymbol{x}-\boldsymbol{x}^{(0)}\right\|+\boldsymbol{\beta}\left\|F\left(\boldsymbol{x}^{(0)}\right)-\boldsymbol{y}\right\|\\&\leqslant\beta\alpha\cdot\delta+\beta\cdot\sigma=\delta,\end{aligned}$$
+
+因此$,H$ 将$\overline{\mathbb{S}}_0$ 映入自身，即 $H\left(\underline{\mathbb{S}}_0\right)\subset\overline{\mathbb{S}}_0$,由压缩映射原理$,H$ 在 $\overline{\mathbb{S}}_0$ 中有唯一不动点. 故方程 $F(\boldsymbol{x})=\boldsymbol{y\text{ 在 }\overline{\mathbb{S}}}_0$ 中有唯一解，从而 $F$ 在 $\overline{\mathbb{S}}_0$上为双射
+
+现证$F^{-1}$在$F\left(\overline{\mathbb{S}}_0\right)$上是连续的.事实上，由于对$\forall\boldsymbol x,\boldsymbol y\in\overline{\mathbb{S}}_0$有
+$$\begin{aligned}\|\boldsymbol{x}-\boldsymbol{y}\|&=\left\|\boldsymbol{A}^{-1}[F(\boldsymbol{x})-F(\boldsymbol{y})]+\boldsymbol{A}^{-1}[G(\boldsymbol{x})-G(\boldsymbol{y})]\right\|.\\&\leqslant\boldsymbol{\beta}\|F(\boldsymbol{x})-F(\boldsymbol{y})\|+\boldsymbol{\beta}\boldsymbol{\alpha}\|\boldsymbol{x}-\boldsymbol{y}\|,\end{aligned}$$
+
+即
+
+$$\|x-y\|\leqslant\frac\beta{1-\beta\alpha}\|F(x)-F(y)\|,$$
+
+故 $F^{-1}$连续. 显然,$F$本身也是连续的,因此,$F$是同胚映射
+
+\end{derivation}
+
+\section{迭代格式的构造}
+对迭代格式$\boldsymbol{x}^{(k)}=G\left(\boldsymbol{x}^{(k-1)}\right),\quad k=1,2,\cdots $
+
+\begin{enumerate}[label=\arabic*)]
+	\item 如果$G$不依赖于迭代步数$k$,且$x^{(k)}$只依赖于$x^(k-1)$,此时称式为 \textcolor{blue}{\textbf{单步定常迭代}}.
+	\item 如果$G$依赖于迭代步数$k$,但$\boldsymbol x^(k)$只依赖于$\boldsymbol x^(k-1)$,此时迭代形式可表示为
+	\begin{equation}
+	x^{(k)}=G_k\left(x^{(k-1)}\right),\quad k=1,2,\cdots.
+	\end{equation}\label{eqn:单步非定常迭代}	
+	称式\ref{eqn:单步非定常迭代} 为 \textcolor{blue}{\textbf{单步非定常迭代}}.
+	\item 如果 $G$ 不依赖于迭代步数 $k$,但 $x^{(k)}$依赖于相邻的$m$个迭代值
+	$$x^{(k-1)},x^{(k-2)},\cdots,x^{(k-m)},$$
+	此时迭代格式可表述为
+	\begin{equation}
+	x^{(k)}=G\left(x^{(k-1)},x^{(k-2)},\cdots,x^{(k-m)}\right),\quad k=m,m+1,\cdots.
+	\end{equation}\label{eqn:m步定常迭代}
+	
+	称式(\ref{eqn:m步定常迭代})为 \textcolor{blue}{\textbf{$m$ 步定常迭代}}.
+	\item 如果$G$依赖于迭代步数$k$,且$\boldsymbol x^(k)$依赖于相邻的$m$个迭代值
+	$$x^{(k-1)},x^{(k-2)},\cdots,x^{(k-m)},$$
+	此时迭代格式可表述为
+	\begin{equation}
+	x^{(k)}=G_k\left(x^{(k-1)},x^{(k-2)},\cdots,x^{(k-m)}\right),\quad k=m,m+1,\cdots.
+	\end{equation}\label{eqn:m步非定常迭代}
+	称式(\ref{eqn:m步非定常迭代})为$m$步非定常迭代
+\end{enumerate}
+
+\section{Ostrowski 定理}
+
+设映射$G:\mathbb{D}\subset\mathbb{R}^n\to\mathbb{R}^n$有一个不动点 $x^*\in$int$(\mathbb{D})$,且在 $x^*$ 处为 F-可导$,G^\prime\left(x^*\right)$ 的谱半径
+$$\rho\left(G^{\prime}\left(\boldsymbol{x}^*\right)\right)=\sigma<1.$$
+则存在开球$\mathbb{S}=\mathbb{S}(\boldsymbol{x}^*,\boldsymbol{\delta})\subset\mathbb{D}$,对任意初值$\boldsymbol{x}^{(0)}\in\mathbb{S},\boldsymbol{x}^*$是式$x^{(k)} = G(x^{(k-1)}) $的吸引点.
+
+\begin{derivation}{推导}
+	只需验证式 $\|G(x) - G(x^*)\| \leq \alpha\|x-x^*\|$ 成立即可.
+	
+	因 $\sigma<1$,故可取 $\varepsilon>0$,使$\sigma + 3\varepsilon <1$
+
+	对$\varepsilon>0$,存在一种范数$\parallel\cdot\parallel\varepsilon$,使 
+
+	$$\|G^{\prime}\left(\boldsymbol{x}^{*}\right)\|_{\varepsilon}\leqslant\sigma+\varepsilon.$$
+
+	另一方面，由 $G$ 在 $\boldsymbol{x}^{*}$ 处 $F$-可导和 $F$-导数的定义可知，对上述 $\varepsilon>0$,存在$\delta>0$,使得对$\forall x\in\mathbb{S}=\mathbb{S}\left(\boldsymbol{x}^*,\delta\right)\subset\mathbb{D}$有
+
+	$$\left\|G(\boldsymbol{x})-G\left(\boldsymbol{x}^*\right)-G^{\prime}\left(\boldsymbol{x}^*\right)\left(\boldsymbol{x}-\boldsymbol{x}^*\right)\right\|_{\varepsilon}\leqslant\boldsymbol{\varepsilon}\left\|\boldsymbol{x}-\boldsymbol{x}^*\right\|_{\varepsilon}.$$
+
+	于是
+
+	$$\begin{aligned}\left\|G(\boldsymbol{x})-G\left(\boldsymbol{x}^*\right)\right\|_{\boldsymbol{\varepsilon}}&\leqslant\left\|G(\boldsymbol{x})-G\left(\boldsymbol{x}^*\right)-G^{\prime}\left(\boldsymbol{x}^*\right)\left(\boldsymbol{x}-\boldsymbol{x}^*\right)\right\|_{\boldsymbol{\varepsilon}}+\\&\left\|G^{\prime}\left(\boldsymbol{x}^*\right)\left(\boldsymbol{x}-\boldsymbol{x}^*\right)\right\|_{\boldsymbol{\varepsilon}}\\&\leqslant(\boldsymbol{\sigma}+2\boldsymbol{\varepsilon})\left\|\boldsymbol{x}-\boldsymbol{x}^*\right\|_{\boldsymbol{\varepsilon}}\end{aligned}$$
+	
+	由 $\sigma+2\varepsilon<1$, 我们有 $\|G(x) - G(x^*)\| \leq \alpha\|x-x^*\|$ 成立. 
+	
+	根据吸引点定理,本定理得证.
+
+	\begin{Thm}[吸引点定理]
+		设$x^*$是式 $x=G(x)$ 的解，$G:\mathbb{D}\subset\mathbb{R}^n\to\mathbb{R}^n.$
+		若存在一个开球$\mathbb{S}=\mathbb{S}\left(\boldsymbol{x}^*,\delta\right)=\{\boldsymbol{x}\mid\|\boldsymbol{x}-\boldsymbol{x}^*\|<\delta,\delta>0\}\subset\mathbb{D}$和常数$\alpha\in(0,1)$,使得对一切 $x\in\mathbb{D}$,有
+
+		$$\left\|G(x)-G\left(x^*\right)\right\|\leqslant\alpha\left\|x-x^*\right\|.$$
+
+		则对任意$x^{(0)}\in\mathbb{S},\boldsymbol{x}^*$是式 $x^{(k)} = G(x^{(k-1)}) $ 的吸引点
+	\end{Thm}
+	
+
+\end{derivation}
+
+
+\section{Kantorovich 定理}
+设 $F:\mathbb{D}\subset\mathbb{R}^n\to\mathbb{R}^n$,初始点 $x^(0)$
+满足：
+\begin{enumerate}[itemindent=1em,label=\arabic*)]	
+	\item $\left[F^{\prime}\left(x^{(0)}\right)\right]^{-1}$存在，且
+	$$\left\|\left[F^{\prime}\left(x^{(0)}\right)\right]^{-1}\right\|\leqslant\beta,$$
+	$$\left\|\left[F^{\prime}\left(x^{(0)}\right)\right]^{-1}F\left(x^{(0)}\right)\right\|\leqslant\eta;$$
+
+	\item 在  $x^{( 0) }$ 的 邻 域  $\mathbb{S} \left ( \boldsymbol{x}^{( 0) }, \delta \right )$ 内 $, F^{\prime }\left ( \boldsymbol{x}^{( k) }\right )$ 存 在 并 满 足  Lipschitz 条件
+	$$\left\|F^{\prime}(x)-F^{\prime}(y)\right\|\leqslant\gamma\|x-y\|,\quad\forall x,y\in\mathbb{S}\left(x^{(0)},\delta\right),$$
+	
+	并且
+	$$\rho=\beta\eta\gamma\leqslant\frac12,$$
+	
+	$$\delta\geqslant\frac{1-\sqrt{1-2\rho}}\rho\eta,$$
+	
+	
+	则式 $F(x)=0$ 至少有一个解$x^*\in\mathbb{S}\left(x^{(0)},\delta\right)$,且由式 $x^{(k+1)} = x^{(k)} - [F'(x^{(k)})]^{-1}F(x^{(k)}) $ 产生的序列$\left\{\boldsymbol{x}^{(k)}\right\}$收敛于 $x^*$,并有估计式
+	
+	$$\left\|x^{(k)}-x^*\right\|\leqslant\frac{\theta^{2^k-1}}{\sum\limits_{i=0}^{2^k-1}\theta^{2i}}\eta,$$
+	
+	其中 $$\theta=\frac{1-\sqrt{1-2\rho}}{1+\sqrt{1-2\rho}}.$$
+\end{enumerate}
+
+\section{非精确Newton法}
+非精确 Newton 法是为弥补 Newton 法计算量大的不足而提出来
+的. 
+
+顾名思义, 非精确 Newton 法在 Newton 法的每步迭代中只对 Newton 方程进行非精确求解. 
+非精确 Newton 法实质上是一类内外迭代算法, 其外迭代为经典 Newton 法, 
+而其内迭代可采用任何线性迭代方法.
+
+这种内外迭代技术由于能够充分利用 Jacobi 矩阵的结构和稀疏性, 
+因此可以大大降低 Newton 法的计算代价. 
+
+\begin{algorithm}
+\caption{Solving Nonlinear Equations with Inexact Newton Method}
+\begin{algorithmic}[1]
+\For{$k = 0, 1, 2, \ldots$ until convergence(\text{直到收敛})}
+    \State Choose $\bar{\eta}_k \in [0, 1)$;
+    \State Solve the inexact Newton equation
+    \begin{equation}
+        F'\left( x^{(k)} \right) s = -F\left( x^{(k)} \right)
+    \end{equation}
+    to obtain $s^{(k)}$ such that
+    \begin{equation}
+        \|r^{(k)}\| = \left\| F\left( x^{(k)} \right) + F'\left( x^{(k)} \right) s^{(k)} \right\| \leq \eta_k \left\| F\left( x^{(k)} \right) \right\|
+    \end{equation}\label{eqn:非精确Newton条件}
+    \State Set $x^{(k+1)} := x^{(k)} + s^{(k)}$;
+\EndFor
+\end{algorithmic}
+\end{algorithm}
+
+算法描述了非精确 Newton 法的一般框架，
+
+其中$\bar{\eta}_k$为第$k$步迭代的 \textcolor{blue}{\textbf{控制阈值}}，$\overline{s}^{(k)}$为 \textcolor{blue}{\textbf{非精确 Newton 步}} ，而式 (\ref{eqn:非精确Newton条件})则称作 \textcolor{blue}{\textbf{非精确Newton条件}}
+
+\end{document}
